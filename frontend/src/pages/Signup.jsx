@@ -1,0 +1,459 @@
+import React, { useState } from 'react';
+import { Zap, Mail, Lock, User, ArrowRight, Eye, EyeOff, Loader } from 'lucide-react';
+import { useAppContext } from '../context/AppContext';
+import { Link, useNavigate } from 'react-router-dom';
+
+const Signup = () => {
+  const { register } = useAppContext();
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState({
+    score: 0,
+    text: 'Weak',
+    color: '#ef4444',
+  });
+
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setError('');
+    if (e.target.name === 'password') {
+      checkPasswordStrength(e.target.value);
+    }
+  };
+
+  const checkPasswordStrength = (password) => {
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (password.length >= 12) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score++;
+
+    const texts = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
+    const colors = ['#ef4444', '#ef4444', '#f59e0b', '#84cc16', '#22c55e', '#16a34a'];
+
+    setPasswordStrength({
+      score: Math.min(score, 5),
+      text: texts[Math.min(score, 5)],
+      color: colors[Math.min(score, 5)],
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccessMessage('');
+
+    try {
+      if (!formData.name || !formData.email || !formData.password) {
+        throw new Error('Please fill in all required fields');
+      }
+      if (formData.password !== confirmPassword) {
+        throw new Error('Passwords do not match');
+      }
+      if (formData.password.length < 8) {
+        throw new Error('Password must be at least 8 characters');
+      }
+      if (!/[A-Z]/.test(formData.password)) {
+        throw new Error('Password must contain an uppercase letter');
+      }
+      if (!/[a-z]/.test(formData.password)) {
+        throw new Error('Password must contain a lowercase letter');
+      }
+      if (!/[0-9]/.test(formData.password)) {
+        throw new Error('Password must contain a number');
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+        throw new Error('Password must contain a special character (!@#$%^&* etc.)');
+      }
+      const res = await register(formData);
+      if (!res.success) throw new Error(res.error);
+      if (res.requiresVerification) {
+        navigate(`/auth/verify-email?email=${encodeURIComponent(res.email || formData.email)}`);
+        return;
+      }
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'var(--bg-color)',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Animated background orbs */}
+      <div style={{
+        position: 'absolute',
+        width: '400px',
+        height: '400px',
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)',
+        top: '-100px',
+        right: '-100px',
+        animation: 'pulse 4s ease-in-out infinite'
+      }} />
+      <div style={{
+        position: 'absolute',
+        width: '350px',
+        height: '350px',
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)',
+        bottom: '-80px',
+        left: '-80px',
+        animation: 'pulse 5s ease-in-out infinite reverse'
+      }} />
+
+      <div className="animate-fade-in auth-card" style={{
+        display: 'flex',
+        width: '100%',
+        maxWidth: '1000px',
+        minHeight: '600px',
+        borderRadius: 'var(--radius-lg)',
+        overflow: 'hidden',
+        boxShadow: 'var(--shadow-lg)',
+        margin: '2rem'
+      }}>
+        {/* Left Panel – Branding */}
+        <div className="auth-left" style={{
+          flex: 1,
+          background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1a1040 100%)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '3rem',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'radial-gradient(circle at 30% 70%, rgba(59,130,246,0.1) 0%, transparent 60%)',
+          }} />
+          
+          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+            <div style={{
+              background: 'var(--accent-gradient)',
+              padding: '1.25rem',
+              borderRadius: 'var(--radius-md)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '2rem',
+              boxShadow: '0 8px 32px rgba(59, 130, 246, 0.3)'
+            }}>
+              <Zap size={48} color="white" fill="white" />
+            </div>
+
+            <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>
+              <span className="text-gradient">EV Hub</span>
+            </h1>
+
+            <p style={{
+              color: 'var(--text-secondary)',
+              fontSize: '1.125rem',
+              lineHeight: 1.6,
+              maxWidth: '300px'
+            }}>
+              Join Bhutan's premier electric vehicle charging network. Find, book, and charge.
+            </p>
+
+            <div style={{
+              display: 'flex',
+              gap: '2rem',
+              marginTop: '3rem',
+              justifyContent: 'center'
+            }}>
+              {[
+                { value: '50+', label: 'Stations' },
+                { value: '1.2K', label: 'Users' },
+                { value: '99.9%', label: 'Uptime' }
+              ].map(stat => (
+                <div key={stat.label}>
+                  <p className="text-gradient" style={{ fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>{stat.value}</p>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', margin: 0 }}>{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Panel – Form */}
+        <div className="auth-right" style={{
+          flex: 1,
+          background: 'var(--bg-secondary)',
+          padding: '3rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '0.5rem' }}>
+            Create Account
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+            Join the EV Hub network today.
+          </p>
+
+          {error && (
+            <div style={{
+              padding: '0.75rem 1rem',
+              borderRadius: 'var(--radius-sm)',
+              background: 'rgba(239, 68, 68, 0.1)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              color: 'var(--status-offline)',
+              marginBottom: '1.5rem',
+              fontSize: '0.875rem'
+            }}>
+              {error}
+            </div>
+          )}
+
+          {successMessage && (
+            <div style={{
+              padding: '0.75rem 1rem',
+              borderRadius: 'var(--radius-sm)',
+              background: 'rgba(34, 197, 94, 0.1)',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
+              color: '#22c55e',
+              marginBottom: '1.5rem',
+              fontSize: '0.875rem'
+            }}>
+              {successMessage}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                Full Name *
+              </label>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: 'var(--bg-tertiary)',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--border-color)',
+                padding: '0 1rem',
+                transition: 'border-color 0.3s'
+              }}>
+                <User size={18} color="var(--text-secondary)" />
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="Karma Wangchuk"
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
+                  style={{
+                    flex: 1,
+                    padding: '0.875rem',
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-primary)',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                Email *
+              </label>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: 'var(--bg-tertiary)',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--border-color)',
+                padding: '0 1rem',
+                transition: 'border-color 0.3s'
+              }}>
+                <Mail size={18} color="var(--text-secondary)" />
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="karma@example.bt"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  style={{
+                    flex: 1,
+                    padding: '0.875rem',
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-primary)',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                Password *
+              </label>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: 'var(--bg-tertiary)',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--border-color)',
+                padding: '0 1rem',
+                transition: 'border-color 0.3s'
+              }}>
+                <Lock size={18} color="var(--text-secondary)" />
+                <input
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  style={{
+                    flex: 1,
+                    padding: '0.875rem',
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-primary)',
+                    outline: 'none'
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ color: 'var(--text-secondary)', background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                Confirm Password *
+              </label>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: 'var(--bg-tertiary)',
+                borderRadius: 'var(--radius-md)',
+                border: `1px solid ${confirmPassword && confirmPassword !== formData.password ? '#ef4444' : 'var(--border-color)'}`,
+                padding: '0 1rem',
+                transition: 'border-color 0.3s'
+              }}>
+                <Lock size={18} color={confirmPassword && confirmPassword !== formData.password ? '#ef4444' : 'var(--text-secondary)'} />
+                <input
+                  name="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => { setConfirmPassword(e.target.value); setError(''); }}
+                  style={{
+                    flex: 1,
+                    padding: '0.875rem',
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-primary)',
+                    outline: 'none'
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  style={{ color: 'var(--text-secondary)', background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
+                >
+                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              {confirmPassword && confirmPassword !== formData.password && (
+                <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.35rem', fontWeight: 600 }}>Passwords do not match</p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={loading}
+              style={{ width: '100%', padding: '1rem', fontSize: '1rem', marginTop: '0.5rem' }}
+            >
+              {loading ? (
+                <Loader size={20} style={{ animation: 'spin 1s linear infinite' }} />
+              ) : (
+                <>
+                  Create Account
+                  <ArrowRight size={20} />
+                </>
+              )}
+            </button>
+          </form>
+
+          <p style={{
+            textAlign: 'center',
+            marginTop: '2rem',
+            color: 'var(--text-secondary)',
+            fontSize: '0.875rem'
+          }}>
+            Already have an account? {' '}
+            <Link
+              to="/login"
+              style={{
+                color: 'var(--accent-primary)',
+                fontWeight: 600,
+                textDecoration: 'none'
+              }}
+            >
+              Sign In
+            </Link>
+          </p>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 0.6; }
+          50% { transform: scale(1.15); opacity: 1; }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @media (max-width: 768px) {
+          .auth-card {
+            flex-direction: column !important;
+            margin: 1rem !important;
+            min-height: auto !important;
+          }
+          .auth-left, .auth-right {
+            padding: 2rem !important;
+            flex: none !important;
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default Signup;
