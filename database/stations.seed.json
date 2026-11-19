@@ -1,0 +1,390 @@
+[
+  {
+    "id": "st-001",
+    "name": "Bhutan Post Corporation Parking",
+    "location": {
+      "lat": 27.473575,
+      "lng": 89.639074,
+      "address": "4 Chang Lam -III, Thimphu"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "available",
+        "price": "Nu 15/kWh"
+      },
+      {
+        "id": "c2",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "occupied",
+        "price": "Nu 15/kWh"
+      },
+      {
+        "id": "c3",
+        "type": "AC Connector",
+        "power": "22kW",
+        "status": "available",
+        "price": "Nu 10/kWh"
+      }
+    ],
+    "rating": 4.8,
+    "amenities": [
+      "Restroom",
+      "Cafe",
+      "WiFi"
+    ]
+  },
+  {
+    "id": "st-002",
+    "name": "Paro Airport EV Hub",
+    "location": {
+      "lat": 27.385455,
+      "lng": 89.4246,
+      "address": "Paro International Airport"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "120kW",
+        "status": "available",
+        "price": "Nu 20/kWh"
+      },
+      {
+        "id": "c2",
+        "type": "DC Connector",
+        "power": "120kW",
+        "status": "available",
+        "price": "Nu 20/kWh"
+      }
+    ],
+    "rating": 4.9,
+    "amenities": [
+      "Shopping",
+      "Restroom",
+      "Restaurant"
+    ]
+  },
+  {
+    "id": "st-003",
+    "name": "Punakha Dzong Eco Charger",
+    "location": {
+      "lat": 27.582234,
+      "lng": 89.864321,
+      "address": "Punakha Dzong Parking"
+    },
+    "status": "occupied",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "available",
+        "price": "Nu 12/kWh"
+      },
+      {
+        "id": "c2",
+        "type": "AC Connector",
+        "power": "22kW",
+        "status": "occupied",
+        "price": "Nu 10/kWh"
+      }
+    ],
+    "rating": 4.5,
+    "amenities": [
+      "Restroom",
+      "Sightseeing"
+    ]
+  },
+  {
+    "id": "st-004",
+    "name": "Phuentsholing Border Charger",
+    "location": {
+      "lat": 26.861111,
+      "lng": 89.380556,
+      "address": "Phuentsholing Main Gate"
+    },
+    "status": "offline",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "offline",
+        "price": "Nu 15/kWh"
+      }
+    ],
+    "rating": 3.5,
+    "amenities": [
+      "Shopping",
+      "Restroom"
+    ]
+  },
+  {
+    "id": "st-005",
+    "name": "Bumthang Valley Charging",
+    "location": {
+      "lat": 27.549212,
+      "lng": 90.744102,
+      "address": "Jakar Town, Bumthang"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "available",
+        "price": "Nu 18/kWh"
+      },
+      {
+        "id": "c2",
+        "type": "AC Connector",
+        "power": "22kW",
+        "status": "available",
+        "price": "Nu 15/kWh"
+      }
+    ],
+    "rating": 4.7,
+    "amenities": [
+      "Cafe",
+      "Sightseeing"
+    ]
+  },
+  {
+    "id": "st-006",
+    "name": "Wangdue Phodrang Station",
+    "location": {
+      "lat": 27.486203,
+      "lng": 89.902111,
+      "address": "Wangdue Main Road"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "available",
+        "price": "Nu 16/kWh"
+      },
+      {
+        "id": "c2",
+        "type": "AC Connector",
+        "power": "22kW",
+        "status": "occupied",
+        "price": "Nu 11/kWh"
+      }
+    ],
+    "rating": 4.3,
+    "amenities": [
+      "Restroom",
+      "Restaurant"
+    ]
+  },
+  {
+    "id": "st-007",
+    "name": "Trongsa Dzong Hub",
+    "location": {
+      "lat": 27.500201,
+      "lng": 90.508103,
+      "address": "Trongsa Dzong Parking"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "AC Connector",
+        "power": "22kW",
+        "status": "available",
+        "price": "Nu 14/kWh"
+      }
+    ],
+    "rating": 4.6,
+    "amenities": [
+      "Sightseeing",
+      "Cafe"
+    ]
+  },
+  {
+    "id": "st-008",
+    "name": "Mongar Town Station",
+    "location": {
+      "lat": 27.274705,
+      "lng": 91.239602,
+      "address": "Mongar Main Market"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "available",
+        "price": "Nu 17/kWh"
+      }
+    ],
+    "rating": 4.2,
+    "amenities": [
+      "Market",
+      "WiFi"
+    ]
+  },
+  {
+    "id": "st-009",
+    "name": "Trashigang District Hub",
+    "location": {
+      "lat": 27.333104,
+      "lng": 91.554201,
+      "address": "Trashigang Town Center"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "available",
+        "price": "Nu 18/kWh"
+      }
+    ],
+    "rating": 4.4,
+    "amenities": [
+      "Restroom",
+      "Cafe"
+    ]
+  },
+  {
+    "id": "st-010",
+    "name": "Samdrup Jongkhar Center",
+    "location": {
+      "lat": 26.793201,
+      "lng": 91.503603,
+      "address": "S/Jongkhar Bus Terminal"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "available",
+        "price": "Nu 15/kWh"
+      }
+    ],
+    "rating": 4.1,
+    "amenities": [
+      "Restroom",
+      "Shopping"
+    ]
+  },
+  {
+    "id": "st-011",
+    "name": "Gelephu City Hub",
+    "location": {
+      "lat": 26.870602,
+      "lng": 90.485601,
+      "address": "Gelephu Main Plaza"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "DC Connector",
+        "power": "50kW",
+        "status": "available",
+        "price": "Nu 14/kWh"
+      }
+    ],
+    "rating": 4.5,
+    "amenities": [
+      "Market",
+      "WiFi"
+    ]
+  },
+  {
+    "id": "st-012",
+    "name": "Haa Valley Charging",
+    "location": {
+      "lat": 27.386204,
+      "lng": 89.277601,
+      "address": "Haa Town Square"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "AC Connector",
+        "power": "22kW",
+        "status": "available",
+        "price": "Nu 12/kWh"
+      }
+    ],
+    "rating": 4.7,
+    "amenities": [
+      "Sightseeing",
+      "WiFi"
+    ]
+  },
+  {
+    "id": "st-013",
+    "name": "Samtse Border Hub",
+    "location": {
+      "lat": 26.899003,
+      "lng": 89.099502,
+      "address": "Samtse Main Gate"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "AC Connector",
+        "power": "22kW",
+        "status": "available",
+        "price": "Nu 11/kWh"
+      }
+    ],
+    "rating": 4,
+    "amenities": [
+      "Shopping",
+      "Restroom"
+    ]
+  },
+  {
+    "id": "st-014",
+    "name": "Solar EV Charging",
+    "location": {
+      "lat": 26.86049,
+      "lng": 91.46423,
+      "address": "Electrical Department, JNEC Campus, Dewathang"
+    },
+    "status": "available",
+    "connectors": [
+      {
+        "id": "c1",
+        "type": "GBT (Solar)",
+        "power": "22kW",
+        "status": "available",
+        "price": "Nu 12/kWh"
+      },
+      {
+        "id": "c2",
+        "type": "Type 2 (Solar)",
+        "power": "22kW",
+        "status": "available",
+        "price": "Nu 12/kWh"
+      }
+    ],
+    "rating": 4.8,
+    "amenities": [
+      "Restroom",
+      "WiFi",
+      "Library"
+    ]
+  }
+]
