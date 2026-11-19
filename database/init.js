@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const mysql2 = require('mysql2/promise');
-const dbConfig = require('../src/config/dbConfig');
+const dbConfig = require('../backend/src/config/dbConfig');
 
 (async () => {
   let conn;
