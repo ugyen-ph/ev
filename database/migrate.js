@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const mysql2 = require('mysql2/promise');
-const dbConfig = require('../src/config/dbConfig');
+const dbConfig = require('../backend/src/config/dbConfig');
 
 // MySQL error codes meaning "that thing is already gone / not there".
 const IGNORE = new Set([

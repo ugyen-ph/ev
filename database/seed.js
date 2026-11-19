@@ -5,8 +5,8 @@ const path = require('path');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const mysql2 = require('mysql2/promise');
-const dbConfig = require('../src/config/dbConfig');
-const config = require('../src/config');
+const dbConfig = require('../backend/src/config/dbConfig');
+const config = require('../backend/src/config');
 
 (async () => {
   const conn = await mysql2.createConnection(dbConfig);

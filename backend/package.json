@@ -8,9 +8,9 @@
     "dev": "nodemon server.js",
     "test": "node --test tests/rules.test.js",
     "test:db": "node test-db.js",
-    "db:init": "node database/init.js",
-    "db:migrate": "node database/migrate.js",
-    "db:seed": "node database/seed.js"
+    "db:init": "cross-env NODE_PATH=./node_modules node ../database/init.js",
+    "db:migrate": "node ../database/migrate.js",
+    "db:seed": "node ../database/seed.js"
   },
   "license": "ISC",
   "type": "commonjs",
